@@ -42,14 +42,14 @@ sed -i "s/localhost/$WORDPRESS_DB_HOST/" /var/www/html/$WORDPRESS_DIRECTORY/wp-c
 chown -R www-data:www-data /var/www/html/$WORDPRESS_DIRECTORY/
 
 # Configuramos la dirección de WordPress y de home
-sed -i "/DB_COLLATE/a define('WP_SITEURL', 'https://$LE_DOMAIN/wordpress');" /var/www/html/$WORDPRESS_DIRECTORY/wp-config.php
+sed -i "/DB_COLLATE/a define('WP_SITEURL', 'https://$LE_DOMAIN/$WORDPRESS_DIRECTORY');" /var/www/html/$WORDPRESS_DIRECTORY/wp-config.php
 sed -i "/WP_SITEURL/a define('WP_HOME', 'https://$LE_DOMAIN');" /var/www/html/$WORDPRESS_DIRECTORY/wp-config.php
 
 # Copiamos el index y no lo llevamos a /var/www/html
 cp /var/www/html/$WORDPRESS_DIRECTORY/index.php /var/www/html
 
 # Combiamos el contenido del index
-sed -i "s#wp-blog-header.php#wordpress/wp-blog-header.php#" /var/www/html/index.php 
+sed -i "s#wp-blog-header.php#$WORDPRESS_DIRECTORY/wp-blog-header.php#" /var/www/html/index.php 
 
 # Copiamos el archivo .htaccess a /var/www/html
 cp ../htaccess/.htaccess /var/www/html
